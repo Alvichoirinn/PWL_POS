@@ -10,8 +10,15 @@ class UserController extends Controller
 {
     public function index()
     {
-        //coba akses model UserModel
-        $user = UserModel::where('level_id', 2)->count();
+        $user = UserModel::firstOrNew(
+            [
+                'username' => 'manager33',
+                'nama' => 'Manager Tiga Tiga',
+                'password' => Hash::make('12345'),
+                'level_id' => 2,
+            ],
+        );
+        //$user->save();
 
         return view('user', ['data' => $user]);
     }
@@ -76,3 +83,37 @@ class UserController extends Controller
     //Modifikasi 9
         // $user = UserModel::where('username', 'manager9')->firstOrFail();
         // return view('user', ['data' => $user]);
+
+    //Modifikasi 10
+        // $user = UserModel::where('level_id', 2)->count();
+        // return view('user', ['data' => $user]);
+
+    //Modifikasi 11
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager',
+        //         'nama' => 'Manager'
+        //     ],
+        // );
+
+        // return view('user', ['data' => $user]);
+
+    //Modifikasi 12
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager22',
+        //         'nama' => 'Manager Dua Dua',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+
+        // return view('user', ['data' => $user]);
+
+    //Modifikasi 13
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager',
+        //         'nama' => 'Manager',
+        //     ],
+        // );
