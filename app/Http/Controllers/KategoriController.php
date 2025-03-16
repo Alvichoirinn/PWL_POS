@@ -27,6 +27,42 @@ class KategoriController extends Controller
         ]);
         return redirect('/kategori');
     }
+
+    //Tugas 3 jobsheet 5
+    public function edit($id)
+    {
+        $kategori = KategoriModel::find($id);
+        return view('kategori.edit', ['data' => $kategori]);
+    }
+
+    public function edit_simpan(Request $request, $id)
+    {
+        // Validasi inputan
+        $request->validate([
+            'kodeKategori' => 'required|string|max:255',
+            'namaKategori' => 'required|string|max:255',
+        ]);
+
+        // Cari data kategori berdasarkan ID
+        $kategori = KategoriModel::findOrFail($id);
+
+        // Perbarui data kategori
+        $kategori->kategori_kode = $request->kodeKategori;
+        $kategori->kategori_nama = $request->namaKategori;
+        $kategori->save();
+
+        // Redirect ke halaman kategori dengan pesan sukses
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui!');
+    }
+
+    //Tugas 4 jobsheet 5
+    public function hapus($id)
+    {
+        $kategori = KategoriModel::find($id);
+        $kategori->delete();
+
+        return redirect('/kategori');
+    }
 }
 
 //Mooifikasi 

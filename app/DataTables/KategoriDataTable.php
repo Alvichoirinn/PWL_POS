@@ -22,16 +22,30 @@ class KategoriDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-/*             ->addColumn('action', 'kategori.action') */
-            ->setRowId('id');
+            ->addColumn('action', function ($kategori) {
+                return '
+                        <a href="' . route('kategori.edit', $kategori->kategori_id) . '" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form action="' . route('kategori.hapus', $kategori->kategori_id) . '" method="POST" style="display:inline;"> 
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin ingin menghapus kategori ini?\')">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </form>';
+            })
+            ->rawColumns(['action'])
+            ->setRowId('kategori_id');
     }
+    
 
     /**
      * Get the query source of dataTable.
      */
     public function query(KategoriModel $model): QueryBuilder
     {
-        return $model->newQuery()->orderBy('kategori_id', 'asc');
+        return $model->newQuery();
     }
 
     /**
@@ -44,7 +58,7 @@ class KategoriDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0, 'asc')
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -52,7 +66,7 @@ class KategoriDataTable extends DataTable
                         Button::make('pdf'),
                         Button::make('print'),
                         Button::make('reset'),
-                        Button::make('reload')
+                        Button::make('reload'),
                     ]);
     }
 
@@ -72,6 +86,7 @@ class KategoriDataTable extends DataTable
             Column::make('kategori_nama'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::computed('action')->title('Aksi')->exportable(false)->printable(false)->orderable(false)->searchable(false)
         ];
     }
 

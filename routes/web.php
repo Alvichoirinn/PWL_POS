@@ -38,6 +38,29 @@ Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
 
 Route::get('/kategori', [KategoriController::class, 'index']);
 
-Route::get('/kategori/create', [KategoriController::class, 'create']);
+Route::get('/kategori/create', [KategoriController::class, 'create']); 
 
 Route::post('/kategori', [KategoriController::class, 'store']);
+
+Route::get('/kategori/create', [KategoriController::class, 'create'])->name('/kategori/create'); // Nampilin add
+
+// Route::get('/kategori/index', [KategoriController::class, 'index'])->name('/kategori/index');
+
+// Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit']);
+
+Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+
+Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+
+Route::post('/kategori/edit_simpan/{id}', [KategoriController::class, 'edit_simpan'])->name('kategori.edit_simpan');
+
+Route::put('/kategori/edit_simpan/{id}', [KategoriController::class, 'edit_simpan']);
+
+Route::delete('/kategori/edit/{id}', [KategoriController::class, 'hapus'])->name('kategori.edit');
+
+Route::delete('/kategori/hapus/{id}', [KategoriController::class, 'hapus'])->name('kategori.hapus');
+
+
+
+
+

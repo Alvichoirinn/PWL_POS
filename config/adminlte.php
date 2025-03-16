@@ -333,6 +333,12 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
+        //Tugas 2 jobsheet 5
+        [
+            'text' => 'Category',
+            'url' => 'kategori',
+            'icon' => 'fa fa-bookmark',
+        ],
         [
             'text' => 'change_password',
             'url' => 'admin/settings',
